@@ -3,8 +3,10 @@
 
 typedef struct student_struct {
     unsigned int roll;
-    char *name;
+    char name[64];
     int score[5];
+    int is_deleted;
 }Student;
 
-
+extern FILE *fp;
+extern Student *head;
