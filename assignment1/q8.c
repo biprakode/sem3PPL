@@ -11,7 +11,7 @@ void add_student(student ***data, int *size);
 void delete_student(student **students, int size, int roll);
 void print_students(student **students, int size);
 int user_sort(student *entry1 , student* entry2);
-void qsort(student **students , int size , int (*user_sort)(student * , student *) , int lo , int hi);
+void quicksort(student **students , int size , int (*user_sort)(student * , student *) , int lo , int hi);
 
 int main() {
     student **students = NULL;
@@ -42,7 +42,7 @@ int main() {
             delete_student(students, size, roll);
         } 
         else if (choice == 4) {
-            qsort(students , size , user_sort , 0 , size-1);
+            quicksort(students , size , user_sort , 0 , size-1);
             printf("Sorted\n");
             print_students(students, size);
         }
@@ -128,7 +128,7 @@ int user_sort(student *entry1 , student* entry2) {
 
 
 
-void qsort(student **students , int size , int (*user_sort)(student * , student *) , int lo , int hi) {
+void quicksort(student **students , int size , int (*user_sort)(student * , student *) , int lo , int hi) {
     if(lo >= hi) return;
 
     int s=lo;
@@ -136,7 +136,7 @@ void qsort(student **students , int size , int (*user_sort)(student * , student 
     student *piv = students[(lo + hi)/2];
     while(s<=e) {
         while ((user_sort(students[s] , piv) > 0)) s++;
-        while ((user_sort(students[s] , piv)) < 0) e--; 
+        while ((user_sort(students[e] , piv)) < 0) e--; 
 
         if(s<=e) {
             student *temp = students[s];
@@ -147,6 +147,6 @@ void qsort(student **students , int size , int (*user_sort)(student * , student 
         }
     }
 
-    if (lo < e) qsort(students, size, user_sort, lo, e);
-    if (s < hi) qsort(students, size, user_sort, s, hi);
+    if (lo < e) quicksort(students, size, user_sort, lo, e);
+    if (s < hi) quicksort(students, size, user_sort, s, hi);
 }
